@@ -1,0 +1,183 @@
+//Вариант: 16
+#include <stdio.h>
+#include <math.h>
+#include <stdlib.h>
+
+//ВВедём константы, координаты точek
+#define I_0 -30
+#define J_0 -4
+#define L_0 12
+#define K 50
+
+//Расстояние ограничивающей прямой
+#define LONG1 -20
+#define LONG2 -10
+
+//Введем функцию поиска наибольшего числа из двух возможных
+int max(int a, int b)
+{
+    if (a > b) {
+        return a;
+    }
+    return b;
+}
+
+//Введем функцию поиска наименьшего числа из двух возможных
+int min(int a, int b)
+{
+    if (a < b) {
+        return a;
+    }
+    return b;
+}
+int mod(int a, int b) {
+    return (a % b + b) % b;
+}
+
+//Введем функцию foli (following i),формула i от k
+int foli(int i, int j, int k, int l)
+{
+    return (abs(i-l) + min(mod(j, 10), mod(i*k, 10)) - 20);
+}
+
+//Введем функцию folj (following j),формула j от k
+int folj(int i, int j, int k, int l)
+{ 
+    return (mod(max(k - i, min(j, max(i - l, j - l))), 30));  
+}
+
+//Введем функцию foll (following l),формула l от k
+int foll(int i, int j, int k, int l)
+{
+    return (mod(pow(l, 2), 20) - mod(max(i, j), k + 1));
+}
+//Проверка попадания между прямыми
+int main()
+{
+    //Присвоим переменным i, k, l значение констант
+    int i = I_0;
+    int j = J_0;
+    int l = L_0;
+    // Добавим цикл for, для проверки попадания за K шагов(по условию 50)
+    for (int k = 1; k <= K; k++) {
+        //точки si sj sl будут результатом уравнений зависящих от к
+        int si = foli(i, j, k, l);
+        int sj = folj(i, j, k, l);
+        int sl = foll(i, j, k, l);
+
+        //В операторе if указываем  расстояние м-у прямыми
+        if ((si + sj >= LONG1)&&(si + sj <= LONG2)) {
+            //Здесь выведем да, если попадем и значения
+            printf("Yes k = %d, i = %d, j = %d, l = %d\n", k, si, sj, sl);
+
+            return 0; 
+        }
+
+        //Приравняем эти значения для того, чтобы цикл for оставался последовательным
+        i = si;
+        j = sj;
+        l = sl;
+    }
+    //Здесь выведем нет, если не попадем
+    printf("No\n");
+    return 0;
+}
+
+
+
+
+
+
+--------------------------------------------
+//Вариант: 16
+#include <stdio.h>
+#include <stdlib.h>
+
+//ВВедём константы, координаты точek
+#define I_0 -30
+#define J_0 -4
+#define L_0 12
+#define K 50
+
+//Расстояние ограничивающей прямой
+#define LONG1 -20
+#define LONG2 -10
+//введем функцию модуля
+int abs(int a) {
+if(a>0) { return a; }
+return -a; 
+}
+//функция возведения в квадрат
+int pow(int a, int b) {
+    return a*a;
+}
+
+//Введем функцию поиска наибольшего числа из двух возможных
+int max(int a, int b)
+{
+    if (a > b) {
+        return a;
+    }
+    return b;
+}
+
+//Введем функцию поиска наименьшего числа из двух возможных
+int min(int a, int b)
+{
+    if (a < b) {
+        return a;
+    }
+    return b;
+}
+int mod(int a, int b) {
+    return (a % b + b) % b;
+}
+
+//Введем функцию foli (following i),формула i от k
+int foli(int i, int j, int k, int l)
+{
+    return (abs(i-l) + min(mod(j, 10), mod(i*k, 10)) - 20);
+}
+
+//Введем функцию folj (following j),формула j от k
+int folj(int i, int j, int k, int l)
+{ 
+    return (mod(max(k - i, min(j, max(i - l, j - l))), 30));  
+}
+
+//Введем функцию foll (following l),формула l от k
+int foll(int i, int j, int k, int l)
+{
+    return (mod(pow(l, 2), 20) - mod(max(i, j), k + 1));
+}
+//Проверка попадания между прямыми
+int main()
+{
+    //Присвоим переменным i, k, l значение констант
+    int i = I_0;
+    int j = J_0;
+    int l = L_0;
+    // Добавим цикл for, для проверки попадания за K шагов(по условию 50)
+    for (int k = 1; k <= K; k++) {
+        //точки si sj sl будут результатом уравнений зависящих от к
+        int si = foli(i, j, k, l);
+        int sj = folj(i, j, k, l);
+        int sl = foll(i, j, k, l);
+
+        //В операторе if указываем  расстояние м-у прямыми
+        if ((si + sj >= LONG1)&&(si + sj <= LONG2)) {
+            //Здесь выведем да, если попадем и значения
+            printf("Yes k = %d, i = %d, j = %d, l = %d\n", k, si, sj, sl);
+
+            return 0; 
+        }
+
+        //Приравняем эти значения для того, чтобы цикл for оставался последовательным
+        i = si;
+        j = sj;
+        l = sl;
+    }
+    //Здесь выведем нет, если не попадем
+    printf("No\n");
+    return 0;
+}
